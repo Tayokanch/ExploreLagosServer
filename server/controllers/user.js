@@ -3,7 +3,15 @@ import prisma from '../utils/prisma.js';
 import { createTouristDb } from '../domains/domain.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-const secret = process.env.JWT_SECRET;
+
+const mySecret = process.env.JWT_SECRET;
+console.log(mySecret); 
+
+
+
+
+
+
 
 const createTourist = async (req, res) => {
     const { firstname, lastname, email, password } = req.body;
@@ -35,7 +43,9 @@ const loginTourist = async (req, res) => {
             where: {
                 email: email
             }
+   
         });
+
 
         if (!foundTourist) {
             return res.status(401).json({ error: 'Invalid username or password' });
@@ -56,7 +66,7 @@ const loginTourist = async (req, res) => {
             userId: foundTourist.id,
             firstName: foundTourist.firstname,
             lastName: foundTourist.lastname,
-        }, secret);
+        }, 'mySecret12345');
 
         return res.status(201).json({ data: generateToken });
     } catch (error) {

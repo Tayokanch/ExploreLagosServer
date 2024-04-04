@@ -3,9 +3,10 @@ import prisma from '../utils/prisma.js';
 import { createTouristDb } from '../domains/domain.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
+import dotenv from 'dotenv';
+dotenv.config();
 const mySecret = process.env.JWT_SECRET;
-console.log(mySecret); 
+
 
 
 
@@ -66,7 +67,7 @@ const loginTourist = async (req, res) => {
             userId: foundTourist.id,
             firstName: foundTourist.firstname,
             lastName: foundTourist.lastname,
-        }, 'mySecret12345');
+        }, mySecret);
 
         return res.status(201).json({ data: generateToken });
     } catch (error) {

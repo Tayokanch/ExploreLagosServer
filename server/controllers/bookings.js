@@ -12,10 +12,8 @@ const createBookings = async (req, res) => {
   
     try {
       const newbooking = await createBookingDb(userId, locationId, printName, bookingfor, price, locationName, visitingDate, referenceNo);
-      console.log('this is the new booking', newbooking)
       return res.status(201).json({ bookings: newbooking });
     } catch (e) {
-      console.log(e.message);
       return res.status(500).json({ error: e.message });
     }
 

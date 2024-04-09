@@ -25,6 +25,7 @@ model Location {
   staffs     Staff[]
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
+  Reviews    Reviews[]
 }
 
 model User {
@@ -36,10 +37,11 @@ model User {
   bookings  Bookings[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
+  Reviews   Reviews[]
 }
 
 model Bookings {
-  id Int @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   locationName String
   printName    String
   bookingfor   String
@@ -58,10 +60,19 @@ model Staff {
   id         Int       @id @default(autoincrement())
   firstname  String
   lastname   String
-  username   String   @unique
-  email      String   @unique
+  username   String    @unique
+  email      String    @unique
   password   String
   role       String
+  locationId Int
+  location   Location? @relation(fields: [locationId], references: [id])
+}
+
+model Reviews {
+  id         Int       @id @default(autoincrement())
+  content    String
+  userId     Int
+  user       User?     @relation(fields: [userId], references: [id])
   locationId Int
   location   Location? @relation(fields: [locationId], references: [id])
 }

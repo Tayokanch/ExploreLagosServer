@@ -86,11 +86,49 @@ const staffDb = async (firstname, lastname, username,email, password, role, loca
   }
 }
 
+const createReviewsDb = async (content, userId, locationId) => {
+  try {
+    const newReview = await prisma.reviews.create({
+      data: {
+        location: { connect: { id: locationId } },
+        user: { connect: { id: userId } },
+        content
+      }
+    });
+    return newReview;
+  } catch (error) {
+    console.error("Error creating review:", error);
+    throw error; 
+  }
+};
+
+const getLocationReviews = async(locationId)=>{
+
+  try{
+    const result = await prisma.reviews.findMany({
+      where:{
+        locationId: locationId
+      },
+      include: {
+        user: {
+          select: {
+            firstname: true,
+            lastname: true
+          }
+        }
+      } 
+    })
+    return result
+  } catch(err){
+    console.error("Error getting reviews:", err);
+    throw err; 
+  }
 
 
+}
   
   
-export  { createLocationDb, createTouristDb, createBookingDb, getUserBookings, staffDb, getBookingsByLocationIdDb}
+export  { createLocationDb, createTouristDb, createBookingDb, getUserBookings, staffDb, getBookingsByLocationIdDb, createReviewsDb, getLocationReviews}
 
 
   

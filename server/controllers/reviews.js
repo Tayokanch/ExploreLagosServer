@@ -24,7 +24,7 @@ const getReviews = async(req, res)=>{
         const reviews = await getLocationReviews( locationId)
         return res.status(200).json({reviews})
     } catch(err){
-        return res.staus(500).json({error:err.message})
+        return res.status(500).json({error:err.message})
     }
 }
 

@@ -75,4 +75,6 @@ model Reviews {
   user       User?     @relation(fields: [userId], references: [id])
   locationId Int
   location   Location? @relation(fields: [locationId], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }

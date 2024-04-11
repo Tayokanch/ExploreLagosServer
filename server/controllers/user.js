@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
-const mySecret = process.env.JWT_SECRET;
+const mySecret = process.env.SECRET;
 
 
 

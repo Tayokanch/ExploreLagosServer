@@ -2,7 +2,7 @@ import prisma from "../utils/prisma.js";
 import { staffDb } from "../domains/domain.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-const secret = process.env.JWT_SECRET;
+const secret = process.env.SECRET;
 
 const createStaff = async (req, res) => {
     const { firstname, lastname, username, email, password, role, locationId } = req.body;
